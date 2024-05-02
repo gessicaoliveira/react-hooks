@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
   const [resourceType, setResourceType] = useState("posts");
+
+  //something happens when some value/something change
+  useEffect(() => {
+    fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }, [resourceType]);
 
   return (
     <>
