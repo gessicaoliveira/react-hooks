@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import FunctionContextComponent from "./FunctionContextComponent";
+import ClassContextComponent from "./ClassContextComponent";
+
+export const ThemeContext = React.createContext();
 
 export default function App() {
-  const [resourceType, setResourceType] = useState("posts");
+  const [darkTheme, setDarkTheme] = useState(true);
 
-  //something happens when some value/something change
-  useEffect(() => {
-    console.log("resource changed");
-
-    return () => {
-      console.log("return from resource change");
-    };
-  }, [resourceType]);
+  function toggleTheme() {
+    setDarkTheme((prevDarkTheme) => !prevDarkTheme);
+  }
 
   return (
     <>
-      <div>
-        <button onClick={() => setResourceType("posts")}>Posts</button>
-        <button onClick={() => setResourceType("users")}>Users</button>
-        <button onClick={() => setResourceType("comments")}>Comments</button>
-      </div>
-      <h1>{resourceType}</h1>
+      <ThemeContext.Provider value={darkTheme}>
+        <button onClick={toggleTheme}>Toggle Theme</button>
+        <FunctionContextComponent />
+        <ClassContextComponent />
+      </ThemeContext.Provider>
     </>
   );
 }
