@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 
 export default function App() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [resourceType, setResourceType] = useState("posts");
 
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
+  //something happens when some value/something change
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
+    console.log("resource changed");
 
-    //Example of clean up your event listener or conexão with an api.
     return () => {
-      window.removeEventListener("resize", handleResize);
+      console.log("return from resource change");
     };
-  }, []);
+  }, [resourceType]);
 
-  return <div>{windowWidth}</div>;
+  return (
+    <>
+      <div>
+        <button onClick={() => setResourceType("posts")}>Posts</button>
+        <button onClick={() => setResourceType("users")}>Users</button>
+        <button onClick={() => setResourceType("comments")}>Comments</button>
+      </div>
+      <h1>{resourceType}</h1>
+    </>
+  );
 }
