@@ -9,6 +9,11 @@ export default function App() {
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
+
+    //Example of clean up your event listener or conexão with an api.
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return <div>{windowWidth}</div>;
